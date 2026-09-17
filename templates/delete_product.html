@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<form method="post" action="">
+    {% csrf_token %}
+
+    <p>Are you sure for delete: {{ product }} ?</p>
+    <br>
+    <button type="submit">Confirm Yes</button>
+</form>
+    <a href="{% url 'home' %}">Go Home</a>
+
+{% endblock content %}

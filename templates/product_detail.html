@@ -1,0 +1,62 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+    
+    <h1>Product: {{ product.name }}</h1>
+
+        <ul>
+            <li><strong>Përshkrimi:</strong> {{ product.description|default:"S'ka përshkrim" }}</li>
+            <li>Description: {{ product.description }}</li>
+            <li>Price: {{ product.price }}</li>
+            <li>Stock: {{ product.stock_quantity }}</li>
+            <li>Min Stok: {{ product.minimum_stock}}</li>
+        </ul>
+
+        <ul>
+            <li><a href="{% url 'add_stock_movement' product.id %}">Add</a></li>
+            <li><a href="{% url 'product_update' product.id %}">Update</a></li>
+            <li><a href="{% url 'delete_product' product.id %}">Delete</a></li>
+        </ul>
+
+
+    <h1>Movement Stock</h1>
+
+        <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Lloji</th>
+                    <th>Sasia</th>
+                    <th>Shenime</th>
+                    <th>Data & Koha</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for movement in product_movements %}
+                    <tr>
+                        <td>
+                            {% if movement.movement_type == 'IN' %}
+                                <span style="color: green;"><strong>Hyrje (+IN)</strong></span>
+                            {% else  %}
+                                <span style="color: red;"><strong>Dalje (-OUT)</strong></span>
+                            {% endif %}
+                        </td>
+                        <td>{{ movement.quantity }}</td>
+                        <td>{{ movement.notes|default:"-" }}</td>
+                        <td>{{ movement.created_at|date:"d/m/Y H:i" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>    
+        {% else  %}
+            <p>Nuk ka asnjë lëvizje stoku të regjistruar për këtë produkt.</p>
+        {% endif %}
+
+        <br>
+        
+        <a href="{% url 'product_list' %}">Kthehu te Lista e Produkteve</a> | 
+        <a href="{% url 'home' %}">Home</a>
+        
+{% endblock content %}

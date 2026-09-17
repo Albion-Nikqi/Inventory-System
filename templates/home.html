@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+
+    <h1>Categories:</h1>
+
+    <ul>
+        <li><a href="{% url 'create_category' %}">Add Category</a></li>
+    </ul>
+
+    {% for category in categories %}
+        <a href="{% url 'category_detail' category.id %}">
+            <strong>{{ category.name }}</strong>
+        </a>
+        <p>Description: {{ category.description }}</p>
+
+        <ul>
+            <li><a href="{% url 'category_update' category.id %}">Update Category</a></li>
+            <li><a href="{% url 'delete_category' category.id %}">Delete Category</a></li>
+        </ul>
+    {% endfor %}
+
+    <ul>
+        <li><a href="{% url 'home' %}">Category</a></li>
+    </ul>
+
+</div>
+
+{% endblock content %}

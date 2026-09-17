@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+    <form method="GET" action="{% url 'product_list' %}" >
+        <input type="text" name="q" placeholder="Kerkoni..." value="{{ request.GET.q }}">
+            <select name="category">
+                <option value="">Të gjitha kategoritë</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if cat.id|stringformat:"s" == category_id %}selected{% endif %}>
+                        {{ cat.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        <button type="submit">Search...</button>
+    </form>
+
+    <br>
+
+    {% if page_obj %}
+        <ul>
+            {% for product in page_obj %}
+                <li>    
+                    <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
+                    - Çmimi: {{ product.price }} € 
+                    - Stoku: {{ product.stock_quantity }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}&q={{ query }}&category={{ category_id }}">Mëparshme</a>
+            {% endif %}
+
+            Faqja {{ page_obj.number }} nga {{ page_obj.paginator.num_pages }}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&q={{ query }}&category={{ category_id }}">Tjetra</a>
+            {% endif %}
+        </div>
+
+    {% else %}
+        <p>Nuk u gjet asnjë produkt.</p>
+    {% endif %}
+
+
+</div>
+
+{% endblock content %}

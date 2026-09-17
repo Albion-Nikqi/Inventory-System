@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+    
+    <p>Category: {{ category.name }}</p>
+    <p>Description: {{ category.description }}</p>
+
+
+    <h3>Information for Products:</h3>
+
+        {% if products %}
+        <ul>
+            {% for product in products %}
+                <li><a href="{% url 'product_detail'  product.id %}"><strong>{{ product.name }}</strong></a></li>
+                <li>Description: {{ product.description }}</li>
+                <li>Price: {{ product.price }}</li>
+                <li>Stock: {{ product.stock_quantity }}</li>
+                <li>Min Stok: {{ product.minimum_stock}}</li>
+            {% endfor %}
+        </ul>
+        <br>
+        {% else %}
+            <p>Nuk ka produkte për të shfaqur.</p>
+        {% endif %}
+
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+        </ul>
+</div>
+
+
+{% endblock content %}
