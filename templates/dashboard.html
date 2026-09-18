@@ -1,0 +1,59 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+    <h2>Paneli i Menaxhimit</h2>
+
+    <div>
+        <p><strong>Totali i Kategoris:</strong> {{ total_categories }}</p>
+        <p><strong>Total i Produkteve:</strong> {{ total_products }}</p>
+    </div>
+
+    <hr>
+
+    <h2>Produkte pa Stok:</h2>
+
+    {% if out_of_stock %}
+        <ul>
+            {% for product in out_of_stock %}
+                <li>
+                    <a href="{% url 'product_detail' product.id %}">
+                        <strong style="color: red;">{{ product.name }}</strong>
+                    </a>
+                    - Stoku: 0
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nuk ka product pa Stok</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>Produkte me Stok minimal:</h2>
+
+    {% if low_stock %}
+        <ul>
+            {% for product in low_stock %}
+                <li>
+                    <a href="{% url 'product_detail' product.id %}">
+                        <strong style="color: red;">{{ product.name }}</strong>
+                    </a>
+                    - Stoku Aktual:  {{ product.stock_quantity }} (Min: {{ product.minimum_stock }})
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nuk ka produkte te niveli minimal i stokut.</p>
+    {% endif %}
+
+    <br>
+
+    <a href="{% url 'home' %}">Ktheu Mbrapa</a>
+    <a href="{% url 'product_list' %}">Lista e Produkteve</a>
+        
+</div>
+
+
+{% endblock content %}

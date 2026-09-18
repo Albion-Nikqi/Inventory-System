@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>   
+    <h2>Shto / Stock per Produktin: {{ product.name }}</h2>
+    <p>Stoku Aktual: {{ product.stock_quantity }}</p>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Regjistro Levizjen</button>
+    </form>
+        <a href="{% url 'product_detail'  product.id %}">Kthehu tek Produkti</a>
+</div>
+
+
+{% endblock content %}

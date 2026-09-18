@@ -8,7 +8,8 @@
     <br>
     <button type="submit">Confirm</button>
 </form>
-    <a href="{% url 'home' %}">Home</a>
-
-
+  
+    <ul>
+        <li><a href="{% url 'category_detail' category.id %}">home</a></li>
+    </ul>
 {% endblock content %}

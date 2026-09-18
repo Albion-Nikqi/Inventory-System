@@ -7,6 +7,9 @@
     <p>Category: {{ category.name }}</p>
     <p>Description: {{ category.description }}</p>
 
+    <ul>
+        <li><a href="{% url 'create_product' category.id %}">+ Shto Produkt të Ri</a></li>
+    </ul>
 
     <h3>Information for Products:</h3>
 
@@ -18,16 +21,19 @@
                 <li>Price: {{ product.price }}</li>
                 <li>Stock: {{ product.stock_quantity }}</li>
                 <li>Min Stok: {{ product.minimum_stock}}</li>
+
+                <br>
+                <ul>
+                    <li><a href="{% url 'product_update' product.id %}">Update Product</a></li>
+                    <li><a href="{% url 'delete_product' product.id %}">Delete Product</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                </ul>
             {% endfor %}
         </ul>
-        <br>
         {% else %}
             <p>Nuk ka produkte për të shfaqur.</p>
         {% endif %}
 
-        <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-        </ul>
 </div>
 
 

@@ -32,7 +32,8 @@
                     <th>Data & Koha</th>
                 </tr>
             </thead>
-            
+        
+        {% if product_movements %}
             <tbody>
                 {% for movement in product_movements %}
                     <tr>

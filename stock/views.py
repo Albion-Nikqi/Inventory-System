@@ -23,7 +23,7 @@ def category_create(request):
 
 def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
-    products = category.products.all()
+    products = category.product_set.all()
 
     return render(request, 'category_detail.html', {'category':category, 'products':products})
 
@@ -67,14 +67,17 @@ def product_list(request):
     return render(request, 'product_list.html', {'query':query, 'category_id':category_id, 'products':products, 'paginator':paginator,
                     'page_number':page_number, 'page_obj':page_obj, 'categories':categories})
 
-def product_create(request):
+def product_create(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
     form = ProductForm(request.POST or None)
 
     if form.is_valid():
-        form.save()
-        return redirect('home')
+        product = form.save(commit=False)
+        product.category = category
+        product.save()
+        return redirect('category_detail', pk=category_id)
 
-    return render(request, 'create_product.html', {'form':form})
+    return render(request, 'create_product.html', {'form':form, 'category':category})
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
@@ -84,27 +87,30 @@ def product_detail(request, pk):
 
 def product_update(request, pk):
     product = get_object_or_404(Product, pk=pk) 
+    category_id = product.category.id
 
     form = ProductForm(request.POST or None, instance=product)
     if form.is_valid():
         form.save()
-        return redirect('home')
+        return redirect('category_detail', pk=category_id)
 
-    return render(request, 'create_product.html', {'product':product, 'form':form})
+    return render(request, 'create_product.html', {'product':product, 'form':form, 'category':product.category})
 
 def product_delete(request, pk):
     product = get_object_or_404(Product, pk=pk)
+    category_id = product.category.id
+
 
     if request.method == 'POST':
         try:
             product.delete()
             messages.success(request, 'Produkti u fshi me sukses!')
-            return redirect('home')
+            return redirect('category_detail', pk=category_id)
         
         except ProtectedError:
             messages.error(request, "Nuk mund ta fshini këtë produkt sepse ka lëvizje stoku të regjistruara!")
 
-    return render(request, 'delete_product.html', {'product':product}) 
+    return render(request, 'delete_product.html', {'product':product, 'category_id':category_id}) 
 
 def add_stock_movement(request, pk):
     product = get_object_or_404(Product, pk=pk)
