@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Category, Product, StockMovement
+from .models import Category, Product
 from .forms import CategoryForm, ProductForm, StockMovementForm
 from django.db.models import Q, ProtectedError
 from django.core.paginator import Paginator
@@ -44,7 +44,7 @@ def category_delete(request, pk):
         category.delete()
         return redirect('home')
 
-    return render(request, 'delete_category.html', {'category':category})    
+    return render(request, 'delete_category.html', {'category':category})
 
 def product_list(request):
     query = request.GET.get('q', '')

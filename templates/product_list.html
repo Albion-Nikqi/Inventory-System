@@ -45,7 +45,14 @@
         <p>Nuk u gjet asnjë produkt.</p>
     {% endif %}
 
-
+    {% if page_obj %}
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'product_detail' page_obj.0.id %}">Detajet e Produktit të Parë</a></li>
+            <li><a href="{% url 'category_detail' page_obj.0.category.id %}">Kategoria e Produktit të Parë</a></li>
+        </ul>
+    {% endif %}
+    
 </div>
 
 {% endblock content %}

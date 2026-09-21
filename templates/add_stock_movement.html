@@ -11,7 +11,11 @@
         {{ form.as_p }}
         <button type="submit">Regjistro Levizjen</button>
     </form>
-        <a href="{% url 'product_detail'  product.id %}">Kthehu tek Produkti</a>
+    
+    <ul>
+        <li><a href="{% url 'product_detail'  product.id %}">Product Detail</a></li>
+        <li><a href="{% url 'category_detail' product.category.id %}">Category Detail</a></li>
+    </ul>
 </div>
 
 

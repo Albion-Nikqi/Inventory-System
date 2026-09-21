@@ -10,6 +10,11 @@
 </form>
   
     <ul>
-        <li><a href="{% url 'category_detail' category.id %}">home</a></li>
+        <li><a href="{% url 'category_detail' category.id %}">Category Detail</a></li>
+        <li><a href="{% url 'home' %}">home</a></li>            
+        {% for product in category.product_set.all %}
+        <li><a href="{% url 'product_detail' product.id %}">Product Detail</a></li>
+        {% endfor %}    
     </ul>
+
 {% endblock content %}
