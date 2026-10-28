@@ -6,7 +6,7 @@
     <form method="GET" action="{% url 'product_list' %}" >
         <input type="text" name="q" placeholder="Kerkoni..." value="{{ request.GET.q }}">
             <select name="category">
-                <option value="">Të gjitha kategoritë</option>
+                <option value="">Te gjitha kategorite</option>
                 {% for cat in categories %}
                     <option value="{{ cat.id }}" {% if cat.id|stringformat:"s" == category_id %}selected{% endif %}>
                         {{ cat.name }}
@@ -31,7 +31,7 @@
 
         <div>
             {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}&q={{ query }}&category={{ category_id }}">Mëparshme</a>
+                <a href="?page={{ page_obj.previous_page_number }}&q={{ query }}&category={{ category_id }}">Meparshme</a>
             {% endif %}
 
             Faqja {{ page_obj.number }} nga {{ page_obj.paginator.num_pages }}
@@ -42,14 +42,14 @@
         </div>
 
     {% else %}
-        <p>Nuk u gjet asnjë produkt.</p>
+        <p>Nuk u gjet asnje produkt.</p>
     {% endif %}
 
     {% if page_obj %}
         <ul>
             <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'product_detail' page_obj.0.id %}">Detajet e Produktit të Parë</a></li>
-            <li><a href="{% url 'category_detail' page_obj.0.category.id %}">Kategoria e Produktit të Parë</a></li>
+            <li><a href="{% url 'product_detail' page_obj.0.id %}">Detajet e Produktit të Pare</a></li>
+            <li><a href="{% url 'category_detail' page_obj.0.category.id %}">Kategoria e Produktit të Pare</a></li>
         </ul>
     {% endif %}
     

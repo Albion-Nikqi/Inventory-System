@@ -7,7 +7,7 @@
     <h1>Product: {{ product.name }}</h1>
 
         <ul>
-            <li><strong>Përshkrimi:</strong> {{ product.description|default:"S'ka përshkrim" }}</li>
+            <li><strong>Pershkrimi:</strong> {{ product.description|default:"S'ka përshkrim" }}</li>
             <li>Price: {{ product.price }}</li>
             <li>Stock: {{ product.stock_quantity }}</li>
             <li>Min Stok: {{ product.minimum_stock}}</li>
@@ -51,7 +51,7 @@
             </tbody>
         </table>    
         {% else  %}
-            <p>Nuk ka asnjë lëvizje stoku të regjistruar për këtë produkt.</p>
+            <p>Nuk ka asnjë levizje stoku te regjistruar per kete produkt.</p>
         {% endif %}
 
         <br>

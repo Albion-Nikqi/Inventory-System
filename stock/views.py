@@ -108,7 +108,7 @@ def product_delete(request, pk):
             return redirect('category_detail', pk=category_id)
         
         except ProtectedError:
-            messages.error(request, "Nuk mund ta fshini këtë produkt sepse ka lëvizje stoku të regjistruara!")
+            messages.error(request, "Nuk mund ta fshini kete produkt sepse ka levizje stoku të regjistruara!")
 
     return render(request, 'delete_product.html', {'product':product, 'category_id':category_id}) 
 
@@ -121,7 +121,7 @@ def add_stock_movement(request, pk):
         movement.product = product
 
         if movement.movement_type == 'OUT' and product.stock_quantity < movement.quantity:
-            messages.error(request, f"Nuk ka stok të mjaftueshëm! Stoku aktual është {product.stock_quantity}.")
+            messages.error(request, f"Nuk ka stok te mjaftueshem! Stoku aktual eshte {product.stock_quantity}.")
             return render(request, 'add_stock_movement.html', {'form':form, 'product':product})
 
         with transaction.atomic():
@@ -132,7 +132,7 @@ def add_stock_movement(request, pk):
 
             product.save()
             movement.save()
-        messages.success(request, "Lëvizja e stokut u regjistrua me sukses!")
+        messages.success(request, "Levizja e stokut u regjistrua me sukses!")
         return redirect('product_detail', pk=product.id)
 
     return render(request, 'add_stock_movement.html', {'product':product, 'form':form})

@@ -19,5 +19,5 @@ class StockMovementForm(forms.ModelForm):
     def clean_quantity(self):
         quantity = self.cleaned_data.get('quantity')
         if quantity is not None and quantity <= 0:
-            raise forms.ValidationError("Sasia e lëvizjes duhet të jetë më e madhe se zero.")
+            raise forms.ValidationError("Sasia e levizjes duhet te jete me e madhe se zero.")
         return quantity
